@@ -14,7 +14,7 @@ const prefixes = [
 ];
 
 var controller = Botkit.slackbot({
-    debug: true,
+    debug: false,
 });
 
 var bot = controller.spawn({
@@ -43,8 +43,6 @@ controller.hears(['@noen', 'noen'],'ambient,message_recieved,direct_message,dire
         controller.storage.users.save(user,function(err, id) {
             const rekt = this.users[Math.floor(Math.random() * this.users.length)];
             const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
-            console.log('*************\nrekt: ' + rekt.name + '\n*************');
-            console.log(JSON.stringify(rekt,null,'  '));
             bot.reply(message,{
               text: prefix + ', ' + '<@' + rekt.id + '>!',
               username: "noen",

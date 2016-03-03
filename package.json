@@ -1,0 +1,23 @@
+{
+  "name": "noen-bot",
+  "version": "1.0.0",
+  "description": "---Simple slack bot---",
+  "main": "index.js",
+  "dependencies": {
+    "botkit": "0.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/finnss/noen-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/finnss/noen-bot/issues"
+  },
+  "homepage": "https://github.com/finnss/noen-bot#readme"
+}
