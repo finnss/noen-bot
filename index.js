@@ -10,7 +10,7 @@ var rekables = [
 const prefixes = [
     'Time to shine', "The work doesn't do itself", 'Get going', 'lol rekt',
     'About time you got picked', 'Oh shit, you actually have to do something',
-    'I guess this one didn\t matter anyway', 'RIP', ':rekt:'
+    'I guess this one didn\'t matter anyway', 'RIP', ':rekt:'
 ];
 
 var controller = Botkit.slackbot({
