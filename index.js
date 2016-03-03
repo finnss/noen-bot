@@ -18,8 +18,11 @@ var controller = Botkit.slackbot({
 });
 
 var bot = controller.spawn({
-    token: 'xoxb-23637647138-IBTajqnTmb1qXPayFkI5ekvH'
+    token: process.env.TOKEN
 }).startRTM(function(err, bot, payload) {
+    if (err) {
+        console.log(err)
+    }
     this.users = payload.users.filter(user => rekables.indexOf(user.name) != -1);
 });
 
