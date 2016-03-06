@@ -26,36 +26,12 @@ var bot = controller.spawn({
     this.users = payload.users.filter(user =>
         !user.deleted &&
         !user.is_bot &&
+        user.id != 'USLACKBOT' &&
         exclude.indexOf(user.name) == -1
     );
-    console.log(this.users);
-});
-/*
-var call_api = function(command, cb) {
-    request.post('https://slack.com/api/' + command, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var json = JSON.parse(body);
-            if (json.ok) {
-                if (cb) cb(null, json);
-            } else {
-                if (cb) cb(json.error, json);
-            }
-        } else {
-            if (cb) cb(error);
-        }
-    }).form({token: process.env.TOKEN});
-};
-
-call_api('users.list', function(err, identity) {
-    console.log('id: ' + JSON.stringify(identity, null, 2));
 });
 
-console.log('\n*************\n');
-
-call_api('users.list', function(err, identity) {
-    console.log('id: ' + JSON.stringify(identity.members.filter(user => user.deleted === true), null, 2));
-});
-*/
+// For mentions of the bot with it's own username
 controller.on('mention,direct_mention',function(bot,message) {
     bot.api.reactions.add({
         timestamp: message.ts,
@@ -85,7 +61,9 @@ controller.on('mention,direct_mention',function(bot,message) {
 
 });
 
-// Deleted bot 'noen' id: U0PJQJ0R4
+// For mentions of @noen in the creator's Slack team where the name @noen was taken
+// Uneccesary if your bot has the name you want it to
+// ID of deleted bot 'noen': U0PJQJ0R4
 controller.hears(['@noen', '<@U0PJQJ0R4>'],'ambient,message_recieved',function(bot, message) {
     bot.api.reactions.add({
         timestamp: message.ts,
