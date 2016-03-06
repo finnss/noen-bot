@@ -13,7 +13,7 @@ npm install
 ```
 This will set up and install the required files on your computer. However, to start the bot, you need to create a new bot on your Slack.
 
-1. https://YOURTEAMNAME.slack.com/apps/manage/A0F7YS25R-bots
+1. https:// YOURTEAMNAME .slack.com/apps/manage/A0F7YS25R-bots
 2. Add configuration
 3. Give your bot a name (Standard 'noen', but anything works)
 4. Copy the the API Token, you will need this for later.
