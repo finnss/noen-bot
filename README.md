@@ -1,9 +1,9 @@
 # noen-bot
-Simple bot for Slack. 
+Simple bot for Slack.
 
 ### Usage
 
-This bot reacts whenever anyone says "@noen" or whatever you decide to name your bot. It responds by tagging a random user from your team, together with a randomly selected phrase from a predetermined list.
+This bot reacts whenever anyone says "@noen" or whatever you decide to name your bot. It responds by tagging a random user from your team, together with a randomly selected phrase from a predetermined list. Its' purpose is to resolve those pesky sitatuons where noone wants to do some task that has to be done!
 
 ### Setup
 ```bash
@@ -13,17 +13,17 @@ npm install
 ```
 This will set up and install the required files on your computer. However, to start the bot, you need to create a new bot on your Slack.
 
-1. https://<YOURTEAMNAME>.slack.com/apps/manage/A0F7YS25R-bots
+1. https:// YOURTEAMNAME .slack.com/apps/manage/A0F7YS25R-bots (link might not work for you - in this case, try to navigate to 'Add new configration' manually)
 2. Add configuration
 3. Give your bot a name (Standard 'noen', but anything works)
 4. Copy the the API Token, you will need this for later.
-5. Invite your bot to the channels you want it to function in by typing ```bash /invite @<BOTNAME> ``` in the respective channels.
+5. Invite your bot to the channels you want it to function in by typing ```/invite @<BOTNAME> ``` in the respective channels.
 
 Now that you have your API Token, we can run the bot. Navigate to the folder from earlier, and type
 ```bash
 TOKEN=<YOURTOKENHERE> node index.js
 ````
-And that's it! Tagging @noen (or whatever you chose) should trigger a response that tags a random user in your team.
+And that's it! Tagging @noen (or whatever you chose) should trigger a response.
 
 ### Options
 You also have the option to exclude any number of members from the bot's user list. When running the bot, simply include a list of the usernames you would like to exclude as such:
