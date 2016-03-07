@@ -82,15 +82,7 @@ controller.on('mention,direct_mention',function(bot,message) {
 controller.hears(['@noen', '<@U0PJQJ0R4>'],'ambient,message_recieved',function(bot, message) {
 
     // Find which users are in the current channel
-    var channels_the_bot_is_in = channels.filter(channel => channel.is_member);
-    // Each channel has a 'latest' field, which tells us how recently someone
-    // has posted there. The most recent one is our current channel, because the
-    // callback we get our data from is triggered by a message in that channel:
-    current_channel = channels_the_bot_is_in.sort(function(channel1, channel2) {
-        var channel1int = parseInt(channel1.latest.split('.')[0]);
-        var channel2int = parseInt(channel2.latest.split('.')[0]);
-        return(channel2int - channel1int);
-    })[0];
+    current_channel = channels.filter(channel => channel.id == message.channel)[0];
     channel_users = global_users.filter(user => current_channel.members.indexOf(user.id) != -1);
 
     // Emoji reaction
