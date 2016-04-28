@@ -38,12 +38,36 @@ const prefixes = [
     'About time you got picked', 'RIP', 'Move it'
 ];
 
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
 // For mentions of the bot with its' own username
 controller.on('mention,direct_mention',function(bot,message) {
+    // The mention is replaced with `botName` in the message, so 
+    // `@noen asd` -> `<@2F124EA> asd`, for instance.
+    var botName = '<@' + bot.identity.id + '>';
+    var re = new RegExp(botName, 'g');
+    var numberOfMentions =  (message.text.match(re) || []).length
+    // the mention is stripped from a direct mention
+    if (message.event === 'direct_mention') {
+      numberOfMentions++;
+    }
 
     // Find which users are in the current channel
     current_channel = channels.filter(channel => channel.id == message.channel)[0];
     channel_users = global_users.filter(user => current_channel.members.indexOf(user.id) != -1);
+
+    if (numberOfMentions > channel_users.length) {
+      numberOfMentions = channel_users.length;
+    }
 
     // Emoji reaction
     bot.api.reactions.add({
@@ -64,12 +88,24 @@ controller.on('mention,direct_mention',function(bot,message) {
             };
         }
         controller.storage.users.save(user, function(err, id) {
-            const rekt = channel_users[Math.floor(Math.random() * channel_users.length)];
+            const rekts = shuffle(channel_users).slice(0, numberOfMentions);
+            const makeMention = user => '<@' + user.id + '>';
+
+            var text = '';
+            if (rekts.length > 1) {
+              // comma separate them nicely :)
+              const last = rekts[numberOfMentions - 1];
+              const rest = rekts.slice(0, numberOfMentions - 1);
+              text += rest.map(makeMention).join(', ');
+              text += ', and ' + makeMention(last);
+            } else {
+              text = makeMention(rekts[0]);
+            }
             const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
             bot.reply(message,{
-              text: prefix + ', ' + '<@' + rekt.id + '>!',
-              username: "noen",
-              icon_url: rekt.profile.image_48,
+              text: prefix + ' ' + text,
+              username: 'noen',
+              icon_url: rekts[0].profile.image_48,
             });
         });
     });
