@@ -111,8 +111,8 @@ controller.on('mention,direct_mention',function(bot,message) {
     });
 
 });
-
-var active = []
+/*
+var active = [];
 if (process.env.ACTIVE) {
     var raw = process.env.ACTIVE;
     active = raw.trim().split(',');
@@ -127,3 +127,4 @@ controller.hears(['@aktiv', 'aktiv'],['message_received'],function(bot,message) 
   });
 
 });
+*/
