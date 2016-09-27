@@ -118,9 +118,12 @@ if (process.env.ACTIVE) {
     active = raw.trim().split(',');
 }
 
-controller.hears(['@aktiv'],['message_received'],function(bot,message) {
+controller.hears(['@aktiv', 'aktiv'],['message_received'],function(bot,message) {
 
   // do something to respond to message
-  bot.reply(message,'Skal liste aktive! Har ' + active);
+  bot.reply(message,{
+    text: 'Skal liste aktive!',
+    username: "noen"
+  });
 
 });
