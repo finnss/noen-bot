@@ -51,7 +51,7 @@ function shuffle(a) {
 
 // For mentions of the bot with its' own username
 controller.on('mention,direct_mention',function(bot,message) {
-    // The mention is replaced with `botName` in the message, so 
+    // The mention is replaced with `botName` in the message, so
     // `@noen asd` -> `<@2F124EA> asd`, for instance.
     var botName = '<@' + bot.identity.id + '>';
     var re = new RegExp(botName, 'g');
@@ -103,9 +103,9 @@ controller.on('mention,direct_mention',function(bot,message) {
             }
             const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
             bot.reply(message,{
-              text: prefix + ' ' + text,
-              username: 'noen',
-              icon_url: rekts[0].profile.image_48,
+              text: prefix + ', allahu akhbar ' + '<@' + rekt.id + '>!',
+              username: "noen",
+              icon_url: rekt.profile.image_48,
             });
         });
     });
