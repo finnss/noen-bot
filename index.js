@@ -111,20 +111,3 @@ controller.on('mention,direct_mention',function(bot,message) {
     });
 
 });
-/*
-var active = [];
-if (process.env.ACTIVE) {
-    var raw = process.env.ACTIVE;
-    active = raw.trim().split(',');
-}
-
-controller.hears(['@aktiv', 'aktiv'],['message_received'],function(bot,message) {
-
-  // do something to respond to message
-  bot.reply(message,{
-    text: 'Skal liste aktive!',
-    username: "noen"
-  });
-
-});
-*/
