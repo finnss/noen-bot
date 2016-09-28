@@ -103,9 +103,52 @@ controller.on('mention,direct_mention',function(bot,message) {
             }
             const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
             bot.reply(message,{
-              text: prefix + ', allahu akhbar ' + '<@' + rekt.id + '>!',
-              username: "noen",
-              icon_url: rekt.profile.image_48,
+              text: prefix + ' ' + text,
+              username: 'noen',
+              icon_url: rekts[0].profile.image_48,
+            });
+        });
+    });
+
+});
+
+
+// For mentions of the bot with its' own username
+controller.hears(['@aktiv','@active'],'message_received,ambient',function(bot,message) {
+    // The mention is replaced with `botName` in the message, so
+    // `@noen asd` -> `<@2F124EA> asd`, for instance.
+    var botName = '<@' + bot.identity.id + '>';
+
+    // Find which users are in the current channel
+    current_channel = channels.filter(channel => channel.id == message.channel)[0];
+    channel_users = global_users.filter(user => current_channel.members.indexOf(user.id) != -1);
+
+    // Emoji reaction
+    bot.api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'robot_face',
+    },function(err, res) {
+        if (err) {
+            bot.botkit.log('Failed to add emoji reaction :(',err);
+        }
+    });
+
+    // Actual reply
+    controller.storage.users.get(message.user, function(err, user) {
+        if (!user) {
+            user = {
+                id: message.user,
+            };
+        }
+        const makeMention = (user) => ' <@' + user.id + '>';
+        const active_tags = channel_users.map(person => makeMention(person));
+
+        controller.storage.users.save(user, function(err, id) {
+
+            bot.reply(message,{
+              text: '' + active_tags,
+              username: 'noen',
             });
         });
     });
