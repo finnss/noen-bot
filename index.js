@@ -27,10 +27,10 @@ var bot = controller.spawn({
     }
 });
 
-var exclude = []
+var exclude = [];
 if (process.env.EXCLUDE) {
-    var raw = process.env.EXCLUDE;
-    exclude = raw.trim().split(',');
+    const exclude_raw = process.env.EXCLUDE;
+    exclude = exclude_raw.trim().split(',');
 }
 
 const prefixes = [
@@ -143,6 +143,58 @@ controller.hears(['@aktiv','@active'],'message_received,ambient',function(bot,me
         }
         const makeMention = (user) => ' <@' + user.id + '>';
         const active_tags = channel_users.map(person => makeMention(person));
+
+        controller.storage.users.save(user, function(err, id) {
+
+            bot.reply(message,{
+              text: '' + active_tags,
+              username: 'noen',
+            });
+        });
+    });
+
+});
+
+var new_users = [];
+if (process.env.NEW) {
+    const new_raw = process.env.NEW;
+    new_users = new_raw.trim().split(',');
+}
+
+// For mentions of the bot with its' own username
+controller.hears(['@nye'],'message_received,ambient',function(bot,message) {
+    // The mention is replaced with `botName` in the message, so
+    // `@noen asd` -> `<@2F124EA> asd`, for instance.
+    var botName = '<@' + bot.identity.id + '>';
+
+    // Find which users are in the current channel
+    current_channel = channels.filter(channel => channel.id == message.channel)[0];
+    channel_users = global_users.filter(user => current_channel.members.indexOf(user.id) != -1);
+
+    // Emoji reaction
+    bot.api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'robot_face',
+    },function(err, res) {
+        if (err) {
+            bot.botkit.log('Failed to add emoji reaction :(',err);
+        }
+    });
+
+    // Actual reply
+    controller.storage.users.get(message.user, function(err, user) {
+        if (!user) {
+            user = {
+                id: message.user,
+            };
+        }
+
+        const makeMention = (user) => ' <@' + user.id + '>';
+        const new_users_in_channel = channel_users.filter(
+            (person) => new_users.indexOf(person.name) !== -1
+        );
+        const active_tags = new_users_in_channel.map(person => makeMention(person));
 
         controller.storage.users.save(user, function(err, id) {
 
