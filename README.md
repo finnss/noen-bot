@@ -1,4 +1,5 @@
-# noen-bot
+# noen-bot [![Build Status](https://ci.abakus.no/api/badges/webkom/noen-bot/status.svg)](https://ci.abakus.no/webkom/noen-bot)
+
 Simple bot for Slack.
 
 ### Usage
