@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/finnss/noen-bot.git"
+    "url": "git+https://github.com/webkom/noen-bot.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Abakus Webkom <webkom@abakus.no>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/finnss/noen-bot/issues"
+    "url": "https://github.com/webkom/noen-bot/issues"
   },
-  "homepage": "https://github.com/finnss/noen-bot#readme"
+  "homepage": "https://github.com/webkom/noen-bot#readme"
 }
