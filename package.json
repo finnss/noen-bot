@@ -4,7 +4,7 @@
   "description": "---Simple slack bot---",
   "main": "index.js",
   "dependencies": {
-    "botkit": "0.5.6"
+    "botkit": "0.5.7"
   },
   "devDependencies": {},
   "scripts": {
